@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36408.4 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlGpt", "SqlGpt\SqlGpt.csproj", "{4E363B64-C265-4257-B58C-33129D522819}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlGpt.Data", "SqlGpt.Data\SqlGpt.Data.csproj", "{CE154DF1-ED00-4BE3-A9AC-77C54AFCABE0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{F2843B8C-FA78-4FC6-A68C-A57B107E87AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlGpt.Models", "SqlGpt.Models\SqlGpt.Models.csproj", "{724BFE86-876C-4F2A-A4B5-3AEA1B4E4767}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4E363B64-C265-4257-B58C-33129D522819}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E363B64-C265-4257-B58C-33129D522819}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E363B64-C265-4257-B58C-33129D522819}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E363B64-C265-4257-B58C-33129D522819}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE154DF1-ED00-4BE3-A9AC-77C54AFCABE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE154DF1-ED00-4BE3-A9AC-77C54AFCABE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE154DF1-ED00-4BE3-A9AC-77C54AFCABE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE154DF1-ED00-4BE3-A9AC-77C54AFCABE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{724BFE86-876C-4F2A-A4B5-3AEA1B4E4767}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{724BFE86-876C-4F2A-A4B5-3AEA1B4E4767}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{724BFE86-876C-4F2A-A4B5-3AEA1B4E4767}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{724BFE86-876C-4F2A-A4B5-3AEA1B4E4767}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CE154DF1-ED00-4BE3-A9AC-77C54AFCABE0} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{724BFE86-876C-4F2A-A4B5-3AEA1B4E4767} = {F2843B8C-FA78-4FC6-A68C-A57B107E87AE}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A8EA6B25-A832-4CED-ADAA-918B3666A376}
+	EndGlobalSection
+EndGlobal
