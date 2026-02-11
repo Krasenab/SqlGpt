@@ -1,6 +1,8 @@
 
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SqlGpt.Data;
+using SqlGpt.Models;
 
 namespace SqlGpt
 {
@@ -16,7 +18,15 @@ namespace SqlGpt
             builder.Services.AddDbContext<SqlGptDbContext>(options => 
                 options.UseSqlServer(connectionString));
 
+            builder.Services
+            .AddIdentity<AppUser, IdentityRole<Guid>>()
+            .AddEntityFrameworkStores<SqlGptDbContext>()
+            .AddDefaultTokenProviders();
+
+
             builder.Services.AddControllers();
+
+          
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
