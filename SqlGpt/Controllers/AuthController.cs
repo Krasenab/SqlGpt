@@ -34,7 +34,8 @@ namespace SqlGpt.Controllers
 
             };
             var result = await _userManager.CreateAsync(user,registerRequestDto.Password);
-            
+            if (!result.Succeeded) 
+            { return BadRequest("Try again"); }
             return  Ok("Registered");
         }
         [HttpPost("login")]

@@ -22,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SqlGpt.Data\SqlGpt.Data.csproj" />
     <ProjectReference Include="..\SqlGpt.Dto\SqlGpt.Dto.csproj" />
+    <ProjectReference Include="..\SqlGpt.Services\SqlGpt.Services.csproj" />
   </ItemGroup>
 
 </Project>

@@ -14,7 +14,7 @@ namespace SqlGpt.Services
         {
             this._db = dbContext;
         }
-        // create-vam messages 
+        // create-vam messages ( realno trqbva da se kazva createMessage !)
         public async Task<MessageResponseDto> SendMessageAsync(MessageRequestDto inputDto)
         {
             Chat c;
@@ -28,11 +28,11 @@ namespace SqlGpt.Services
 
                 _db.Chats.Add(c);
             }
-            else {
-                c = await _db.Chats.FirstOrDefaultAsync(c => c.Id == inputDto.ChatId);
 
-                if (c != null) { throw new Exception("this chat doesn't exist"); } 
-            }
+               c = await _db.Chats.FirstOrDefaultAsync(c => c.Id == inputDto.ChatId);
+
+               
+        
 
             Message m = new Message()
             {

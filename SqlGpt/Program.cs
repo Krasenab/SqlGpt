@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SqlGpt.Data;
 using SqlGpt.Models;
+using SqlGpt.Services;
+using SqlGpt.Services.Interfaces;
 using System.Text;
 
 namespace SqlGpt
@@ -26,7 +28,7 @@ namespace SqlGpt
             .AddEntityFrameworkStores<SqlGptDbContext>()
             .AddDefaultTokenProviders();
 
-            
+            builder.Services.AddScoped<IChatService, ChatService>();
             builder.Services.AddControllers();
 
           
