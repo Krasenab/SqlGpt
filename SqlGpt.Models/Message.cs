@@ -17,7 +17,7 @@ namespace SqlGpt.Models
         public string Content { get; set; } 
         public bool IsFromUser { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        
+     
         public Guid ChatId { get; set; }
         [ForeignKey(nameof(ChatId))]
         public Chat Chat { get; set; }

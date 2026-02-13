@@ -26,7 +26,7 @@ namespace SqlGpt
             .AddEntityFrameworkStores<SqlGptDbContext>()
             .AddDefaultTokenProviders();
 
-
+            
             builder.Services.AddControllers();
 
           
@@ -59,6 +59,8 @@ namespace SqlGpt
                         Encoding.UTF8.GetBytes(key))
                 };
             });
+
+
 
             var app = builder.Build();
 

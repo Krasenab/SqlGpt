@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36408.4 d17.14
+VisualStudioVersion = 17.14.36408.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlGpt", "SqlGpt\SqlGpt.csproj", "{4E363B64-C265-4257-B58C-33129D522819}"
 EndProject
@@ -16,6 +16,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dto", "Dto", "{C9268E2C-9E9E-4324-8464-3FCD9175B42E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlGpt.Dto", "SqlGpt.Dto\SqlGpt.Dto.csproj", "{E19CFA54-E0E5-4FF5-A032-3390CD1A41B4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{CEBC3308-56A9-4350-BD80-5C6686A9AD3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlGpt.Services", "SqlGpt.Services\SqlGpt.Services.csproj", "{BF7770E3-B86F-478E-910B-4CCE2634322C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,10 @@ Global
 		{E19CFA54-E0E5-4FF5-A032-3390CD1A41B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E19CFA54-E0E5-4FF5-A032-3390CD1A41B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E19CFA54-E0E5-4FF5-A032-3390CD1A41B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF7770E3-B86F-478E-910B-4CCE2634322C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF7770E3-B86F-478E-910B-4CCE2634322C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF7770E3-B86F-478E-910B-4CCE2634322C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF7770E3-B86F-478E-910B-4CCE2634322C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,6 +55,7 @@ Global
 		{CE154DF1-ED00-4BE3-A9AC-77C54AFCABE0} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{724BFE86-876C-4F2A-A4B5-3AEA1B4E4767} = {F2843B8C-FA78-4FC6-A68C-A57B107E87AE}
 		{E19CFA54-E0E5-4FF5-A032-3390CD1A41B4} = {C9268E2C-9E9E-4324-8464-3FCD9175B42E}
+		{BF7770E3-B86F-478E-910B-4CCE2634322C} = {CEBC3308-56A9-4350-BD80-5C6686A9AD3E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A8EA6B25-A832-4CED-ADAA-918B3666A376}
