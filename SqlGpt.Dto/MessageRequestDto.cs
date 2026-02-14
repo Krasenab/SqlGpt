@@ -11,7 +11,7 @@ namespace SqlGpt.Dto
 {
     public class MessageRequestDto
     {
-        public Guid ChatId { get; set; }
+        public Guid? ChatId { get; set; }
 
         [Required]
         public string Message { get; set; }

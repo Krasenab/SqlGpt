@@ -14,10 +14,12 @@ namespace SqlGpt.Services
         {
             this._db = dbContext;
         }
-        // create-vam messages ( realno trqbva da se kazva createMessage !)
+        // create message and rsponse from AI  ( realno tova mi e chat razgovora)
         public async Task<MessageResponseDto> SendMessageAsync(MessageRequestDto inputDto)
         {
-            Chat c;
+
+            Chat? c;
+
             if (inputDto.ChatId == null)
             {
                 c = new Chat()
@@ -28,15 +30,20 @@ namespace SqlGpt.Services
 
                 _db.Chats.Add(c);
             }
+            else
+            {
+                c = await _db.Chats.FirstOrDefaultAsync(x => x.Id == inputDto.ChatId);
 
-               c = await _db.Chats.FirstOrDefaultAsync(c => c.Id == inputDto.ChatId);
+                if (c == null)
+                    throw new Exception("Chat not found");
+            }
 
-               
-        
+
+
 
             Message m = new Message()
             {
-                ChatId = inputDto.ChatId,
+                ChatId = c.Id,
                 Content = inputDto.Message,
                 CreatedAt = DateTime.UtcNow,
                 IsFromUser = true
