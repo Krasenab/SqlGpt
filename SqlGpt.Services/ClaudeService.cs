@@ -29,7 +29,7 @@ namespace SqlGpt.Services
 
 
             var model = _config["Claude:Model"] ?? "claude-opus-4-6"; 
-            var maxTokens = int.TryParse(_config["Claude:MaxTokens"], out var mt) ? mt : 250; // default ми е 512
+            var maxTokens = int.TryParse(_config["Claude:MaxTokens"], out var mt) ? mt : 250; // default ми е 512 tokena
 
             using var req = new HttpRequestMessage(HttpMethod.Post, "v1/messages");
             req.Headers.Add("x-api-key", apiKey);
