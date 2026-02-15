@@ -9,10 +9,11 @@ namespace SqlGpt.Services
     public class ChatService : IChatService
     {
         private SqlGptDbContext _db;
-
-        public ChatService(SqlGptDbContext dbContext) 
+        private IClaudeService _claudeService;
+        public ChatService(SqlGptDbContext dbContext,IClaudeService claudeService) 
         {
             this._db = dbContext;
+            this._claudeService = claudeService;
         }
         // create message and rsponse from AI  ( realno tova mi e chat razgovora)
         public async Task<MessageResponseDto> SendMessageAsync(MessageRequestDto inputDto)
@@ -53,10 +54,11 @@ namespace SqlGpt.Services
             _db.Messages.Add(m);
 
             // vremenno mokvam
-            string fakeAi = "How can I help human. I am AI";
+            // string fakeAi = "How can I help human. I am AI";
+            var aiResponse = await _claudeService.GetResponseAsync(m.Content);
             Message aiResponseMessage = new Message() 
             {
-                Content = fakeAi,
+                Content = aiResponse,
                 CreatedAt = DateTime.UtcNow,
                 ChatId = c.Id,
                 IsFromUser = false

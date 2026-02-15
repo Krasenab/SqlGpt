@@ -21,7 +21,7 @@ namespace SqlGpt.Services
         }
         public async Task<string> GetResponseAsync(string userMessage, CancellationToken ct = default)
         {
-            // vzimane na api klucha ot secrets
+
             var apiKey = _config["Claude:ApiKey"];
             
             if (string.IsNullOrWhiteSpace(apiKey))
@@ -54,7 +54,7 @@ namespace SqlGpt.Services
             if (!res.IsSuccessStatusCode)
                 throw new Exception($"Claude API error {(int)res.StatusCode}: {json}");
 
-            // Claude vrushta otgovor
+    
             using var doc = JsonDocument.Parse(json);
             var contentArr = doc.RootElement.GetProperty("content");
             foreach (var item in contentArr.EnumerateArray())

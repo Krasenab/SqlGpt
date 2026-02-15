@@ -29,6 +29,11 @@ namespace SqlGpt
             .AddDefaultTokenProviders();
 
             builder.Services.AddScoped<IChatService, ChatService>();
+           
+            builder.Services.AddHttpClient<IClaudeService, ClaudeService>(client =>
+            {
+                client.BaseAddress = new Uri("https://api.anthropic.com/");
+            });
             builder.Services.AddControllers();
 
           
