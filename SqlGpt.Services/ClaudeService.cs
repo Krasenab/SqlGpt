@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using SqlGpt.Infrastructure.InfrastructureModels;
 using SqlGpt.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace SqlGpt.Services
            _http = http;
            _config = config;
         }
-        public async Task<string> GetResponseAsync(string userMessage, CancellationToken ct = default)
+        public async Task<string> GetResponseAsync(List<ClaudeMessage> messages, CancellationToken ct = default)
         {
 
             var apiKey = _config["Claude:ApiKey"];
@@ -40,10 +41,11 @@ namespace SqlGpt.Services
             {
                 model = model,
                 max_tokens = maxTokens,
-                messages = new[]
+                messages = messages.Select(x => new
                 {
-                    new { role = "user", content = userMessage }
-                }
+                    role = x.Role,
+                    content = x.Content
+                }).ToList()
             };
 
             req.Content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");

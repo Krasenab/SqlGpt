@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SqlGpt.Data\SqlGpt.Data.csproj" />
     <ProjectReference Include="..\SqlGpt.Dto\SqlGpt.Dto.csproj" />
+    <ProjectReference Include="..\SqlGpt.Infrastructure\SqlGpt.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
