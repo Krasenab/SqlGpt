@@ -54,8 +54,8 @@ namespace SqlGpt.Services
 
             _db.Messages.Add(m);
             await _db.SaveChangesAsync();
-            List<Message> getMessage = await _db.Messages.Where(x=>x.ChatId== c.Id).OrderBy(x=>x.CreatedAt).ToListAsync();
-
+            // vzimane na istoriqta
+            List<Message> getMessage = await _db.Messages.Where(x=>x.ChatId== c.Id).Take(5).OrderBy(x=>x.CreatedAt).ToListAsync();
             List<ClaudeMessage> history =  getMessage.Select(x => new ClaudeMessage
             {
                 Role = x.IsFromUser ? "user" : "assistant",
@@ -65,6 +65,7 @@ namespace SqlGpt.Services
 
             // vremenno mokvam
             // string fakeAi = "How can I help human. I am AI";
+
             var aiResponse = await _claudeService.GetResponseAsync(history); // vzimane na responsa ot claude service
             Message aiResponseMessage = new Message() 
             {

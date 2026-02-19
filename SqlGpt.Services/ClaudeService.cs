@@ -24,13 +24,16 @@ namespace SqlGpt.Services
         {
 
             var apiKey = _config["Claude:ApiKey"];
-            
-            if (string.IsNullOrWhiteSpace(apiKey))
-                throw new InvalidOperationException("Missing Claude:ApiKey (use secrets.json / user-secrets).");
 
+            if (string.IsNullOrWhiteSpace(apiKey))
+            {
+                throw new InvalidOperationException("Missing Claude:ApiKey (use secrets.json / user-secrets).");
+            }
 
             var model = _config["Claude:Model"] ?? "claude-opus-4-6"; 
             var maxTokens = int.TryParse(_config["Claude:MaxTokens"], out var mt) ? mt : 250; // default ми е 512 tokena
+
+            var systemPrompt = _config["Claude:SystemPrompt"];
 
             using var req = new HttpRequestMessage(HttpMethod.Post, "v1/messages");
             req.Headers.Add("x-api-key", apiKey);
@@ -41,6 +44,7 @@ namespace SqlGpt.Services
             {
                 model = model,
                 max_tokens = maxTokens,
+                system = systemPrompt,
                 messages = messages.Select(x => new
                 {
                     role = x.Role,
