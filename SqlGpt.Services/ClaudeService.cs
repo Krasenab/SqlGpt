@@ -35,16 +35,20 @@ namespace SqlGpt.Services
 
             var systemPrompt = _config["Claude:SystemPrompt"];
 
-            using var req = new HttpRequestMessage(HttpMethod.Post, "v1/messages");
-            req.Headers.Add("x-api-key", apiKey);
-            req.Headers.Add("anthropic-version", "2023-06-01");
-            req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            using var requestForClaude = new HttpRequestMessage(HttpMethod.Post, "v1/messages");
+
+            requestForClaude.Headers.Add("x-api-key", apiKey);
+            requestForClaude.Headers.Add("anthropic-version", "2023-06-01");
+            requestForClaude.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            
 
             var payload = new
             {
                 model = model,
                 max_tokens = maxTokens,
                 system = systemPrompt,
+                temperature=0.1,
                 messages = messages.Select(x => new
                 {
                     role = x.Role,
@@ -52,14 +56,16 @@ namespace SqlGpt.Services
                 }).ToList()
             };
 
-            req.Content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
+            requestForClaude.Content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
 
-            using var res = await _http.SendAsync(req, ct);
-            var json = await res.Content.ReadAsStringAsync(ct);
+            using var responseFromClaude = await _http.SendAsync(requestForClaude, ct);
+            var json = await responseFromClaude.Content.ReadAsStringAsync(ct);
 
-            if (!res.IsSuccessStatusCode)
-                throw new Exception($"Claude API error {(int)res.StatusCode}: {json}");
-
+            if (!responseFromClaude.IsSuccessStatusCode)
+            {
+                // throw new Exception($"Claude API error {(int)responseFromClaude.StatusCode}: {json}");
+                throw new Exception("LLM service in unavailable");
+            }
     
             using var doc = JsonDocument.Parse(json);
             var contentArr = doc.RootElement.GetProperty("content");

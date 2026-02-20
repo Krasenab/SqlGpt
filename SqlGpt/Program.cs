@@ -35,8 +35,18 @@ namespace SqlGpt
                 client.BaseAddress = new Uri("https://api.anthropic.com/");
             });
             builder.Services.AddControllers();
+            // addvam neshta za CORS 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("ReactPolicy", policy =>
+                {
+                    policy
+                        .WithOrigins("https://localhost:7062")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
 
-          
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -79,7 +89,7 @@ namespace SqlGpt
             }
 
             app.UseHttpsRedirection();
-
+            app.UseCors("ReactPolicy");
             app.UseAuthentication();
             app.UseAuthorization();
 

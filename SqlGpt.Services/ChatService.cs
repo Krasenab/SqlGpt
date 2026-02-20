@@ -55,7 +55,7 @@ namespace SqlGpt.Services
             _db.Messages.Add(m);
             await _db.SaveChangesAsync();
             // vzimane na istoriqta
-            List<Message> getMessage = await _db.Messages.Where(x=>x.ChatId== c.Id).Take(5).OrderBy(x=>x.CreatedAt).ToListAsync();
+            List<Message> getMessage = await _db.Messages.Where(x => x.ChatId == c.Id).OrderByDescending(x => x.CreatedAt).Take(10).OrderBy(x => x.CreatedAt).ToListAsync();
             List<ClaudeMessage> history =  getMessage.Select(x => new ClaudeMessage
             {
                 Role = x.IsFromUser ? "user" : "assistant",
