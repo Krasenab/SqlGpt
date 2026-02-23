@@ -9,6 +9,7 @@ namespace SqlGpt.Services.Interfaces
 {
     public interface IChatService
     {
-        public Task<MessageResponseDto> SendMessageAsync(MessageRequestDto inputDto);
+        public Task<MessageResponseDto> SendMessageAsync(MessageRequestDto inputDto,string? userId);
+        public Task<List<MyChatDto>> GetUserChatsAsync(string userId);  
     }
 }

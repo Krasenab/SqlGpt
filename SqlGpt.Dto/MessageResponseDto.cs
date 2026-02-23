@@ -9,7 +9,7 @@ namespace SqlGpt.Dto
 {
     public class MessageResponseDto
     {
-        public Guid ChatId { get; set; }
+        public Guid? ChatId { get; set; }
 
         public string AppUserMessage { get; set; }
 

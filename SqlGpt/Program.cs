@@ -29,19 +29,24 @@ namespace SqlGpt
             .AddDefaultTokenProviders();
 
             builder.Services.AddScoped<IChatService, ChatService>();
-           
+            builder.Services.AddScoped<IJwtService, JwtService>();
+
+            // advam servica polzvasht HttpClienta
             builder.Services.AddHttpClient<IClaudeService, ClaudeService>(client =>
             {
                 client.BaseAddress = new Uri("https://api.anthropic.com/");
             });
+            
+            
             builder.Services.AddControllers();
+
             // addvam neshta za CORS 
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("ReactPolicy", policy =>
                 {
                     policy
-                        .WithOrigins("https://localhost:7062")
+                        .WithOrigins("http://localhost:5173")
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });
@@ -53,16 +58,15 @@ namespace SqlGpt
 
             // addvam nastroikite za JWT 
 
-            var jwtSection = builder.Configuration.GetSection("Jwt");
+            var jwtSection = builder.Configuration.GetSection("Jwt"); // vzimam ot appsettings neshtata za JWT
             var key = jwtSection["Key"];
 
             builder.Services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(options =>
-            {
+            }).AddJwtBearer(options =>{
+
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
