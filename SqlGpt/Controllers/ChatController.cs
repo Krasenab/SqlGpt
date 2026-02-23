@@ -42,6 +42,7 @@ namespace SqlGpt.Controllers
         [Authorize]
         public async Task<IActionResult> UserChats() 
         {
+
             string? getUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (getUserId==null)
             {
@@ -58,7 +59,25 @@ namespace SqlGpt.Controllers
 
             return Ok(getChats);
         }
-        [HttpGet()]
-
+        [HttpGet("")]
+        [Authorize]
+        public async Task<IActionResult> GetChatMessages(string chatId) 
+        {
+            
+            MyChatDto chat = await _chatService.GetChatByChatId(chatId);
+            if (chat==null)
+            {
+                return NotFound();
+            }
+            string? getUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (chat.AppUserId !=getUserId)
+            {
+                return Unauthorized();
+            }
+            List<ChatMessagesDto> messages = await _messageService.GetChatMessagesByChatIdAsync(chatId);
+            chat.oldMessages = messages;
+            
+            return Ok(chat);
+        }
     }
 }

@@ -17,6 +17,19 @@ namespace SqlGpt.Services
             this._claudeService = claudeService;
         }
 
+        public async Task<MyChatDto> GetChatByChatId(string chatId)
+        {
+            MyChatDto? c = await _db.Chats.Where(c => c.Id.ToString() == chatId).Select(ch => new MyChatDto
+            {
+                AppUserId = ch.AppUserId.ToString(),
+                ChatId = ch.Id,
+                
+
+            }).FirstOrDefaultAsync();
+
+            return c;
+        }
+
         public async Task<List<MyChatDto>> GetUserChatsAsync(string userId)
         {
             List<MyChatDto> chats = await _db.Chats.Where(au=>au.AppUserId.ToString()==userId)
