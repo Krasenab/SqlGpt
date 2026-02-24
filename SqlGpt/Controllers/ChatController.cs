@@ -48,7 +48,9 @@ namespace SqlGpt.Controllers
             {
                 return Unauthorized();
             }
+
             List<MyChatDto> getChats = await _chatService.GetUserChatsAsync(getUserId);
+
             // това го премахва от тука за да подобря performance i pravq вместо това нов ендпойнт зареждащ месидижите
             //foreach (MyChatDto c in getChats) 
             //{
@@ -59,7 +61,7 @@ namespace SqlGpt.Controllers
 
             return Ok(getChats);
         }
-        [HttpGet("")]
+        [HttpGet("{chatId}")]
         [Authorize]
         public async Task<IActionResult> GetChatMessages(string chatId) 
         {
