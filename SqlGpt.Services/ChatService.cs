@@ -52,9 +52,9 @@ namespace SqlGpt.Services
             
             if (userId == null) 
             {
-                // suzdavam nova istoriq na ne lognat potrebitel
-                List<ClaudeMessage> tempHistoryData = new List<ClaudeMessage>();
-                
+                // история от клиет Реактче ако не съществува ще го създадем
+                var history = inputDto.GuestHistory ?? new List<ClaudeMessage>();
+
                 ClaudeMessage msg = new ClaudeMessage();
                 msg.Content = inputDto.Message;
                 msg.Role = "user";
@@ -108,7 +108,7 @@ namespace SqlGpt.Services
             await _db.SaveChangesAsync();
 
             // vzimane na istoriqta
-            List<Message> getMessage = await _db.Messages.Where(x => x.ChatId == c.Id).OrderByDescending(x => x.CreatedAt).Take(10).OrderBy(x => x.CreatedAt).ToListAsync();
+            List<Message> getMessage = await _db.Messages.Where(x => x.ChatId == c.Id).OrderBy(x => x.CreatedAt).ToListAsync();
             List<ClaudeMessage> history =  getMessage.Select(x => new ClaudeMessage
             {
                 Role = x.IsFromUser ? "user" : "assistant",

@@ -1,4 +1,4 @@
-
+﻿using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +20,7 @@ namespace SqlGpt
             // Add services to the container.
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-            builder.Services.AddDbContext<SqlGptDbContext>(options => 
+            builder.Services.AddDbContext<SqlGptDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
             builder.Services
@@ -30,14 +30,15 @@ namespace SqlGpt
 
             builder.Services.AddScoped<IChatService, ChatService>();
             builder.Services.AddScoped<IJwtService, JwtService>();
+            builder.Services.AddScoped<IMessageService, MessageService>();
 
             // advam servica polzvasht HttpClienta
             builder.Services.AddHttpClient<IClaudeService, ClaudeService>(client =>
             {
                 client.BaseAddress = new Uri("https://api.anthropic.com/");
             });
-            
-            
+
+
             builder.Services.AddControllers();
 
             // addvam neshta za CORS 
@@ -54,7 +55,34 @@ namespace SqlGpt
 
 
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            //builder.Services.AddSwaggerGen() заменям това , с това по на доло 
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+                    Description = "Enter: Bearer {your token}"
+                });
+                options.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+                {
+                    {
+                        new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                        {
+                                Reference = new Microsoft.OpenApi.Models.OpenApiReference
+                                {
+                                     Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                                        Id = "Bearer"
+                                }
+                        },
+                        new string[]{ }
+
+                    }
+                });
+            });
 
             // addvam nastroikite za JWT 
 
@@ -65,7 +93,8 @@ namespace SqlGpt
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(options =>{
+            }).AddJwtBearer(options =>
+            {
 
                 options.TokenValidationParameters = new TokenValidationParameters
                 {

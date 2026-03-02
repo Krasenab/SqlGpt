@@ -64,7 +64,7 @@ namespace SqlGpt.Services
             if (!responseFromClaude.IsSuccessStatusCode)
             {
                 // throw new Exception($"Claude API error {(int)responseFromClaude.StatusCode}: {json}");
-                throw new Exception("LLM service in unavailable");
+                throw new Exception("LLM service is unavailable");
             }
     
             using var doc = JsonDocument.Parse(json);

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SqlGpt.Infrastructure.InfrastructureModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,5 +16,6 @@ namespace SqlGpt.Dto
 
         [Required]
         public string Message { get; set; }
+        public List<ClaudeMessage>? GuestHistory { get; set; }
     }
 }
