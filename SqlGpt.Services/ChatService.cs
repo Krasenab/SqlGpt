@@ -53,7 +53,7 @@ namespace SqlGpt.Services
             if (userId == null) 
             {
                 // история от клиет Реактче ако не съществува ще го създадем
-                var history = inputDto.GuestHistory ?? new List<ClaudeMessage>();
+                var tempHistoryData = inputDto.GuestHistory ?? new List<ClaudeMessage>();
 
                 ClaudeMessage msg = new ClaudeMessage();
                 msg.Content = inputDto.Message;
