@@ -45,23 +45,30 @@ namespace SqlGpt.Services
 
         }
 
-        // create message za ai i s claude servica vzimam otgowora ot AI , добавкам и анонимен режим където нищо не записваме в базата
+        // create message za ai i s claude servica vzimam otgowora ot AI
         public async Task<MessageResponseDto> SendMessageAsync(MessageRequestDto inputDto,string? userId)
         {
 
             
             if (userId == null) 
             {
-                // история от клиет Реактче ако не съществува ще го създадем
+                //за история на не логнат клиет за Реактче, ако не съществува ще го създадем списъка
                 var tempHistoryData = inputDto.GuestHistory ?? new List<ClaudeMessage>();
 
                 ClaudeMessage msg = new ClaudeMessage();
                 msg.Content = inputDto.Message;
                 msg.Role = "user";
+
                 tempHistoryData.Add(msg);
 
-                var response = await _claudeService.GetResponseAsync(tempHistoryData);
 
+                if (tempHistoryData.Count > 30)
+                {
+                    tempHistoryData = tempHistoryData.Skip(tempHistoryData.Count - 30).ToList();
+                }
+
+                var response = await _claudeService.GetResponseAsync(tempHistoryData);
+                
 
                 MessageResponseDto responseDto = new MessageResponseDto() 
                 {
@@ -70,7 +77,8 @@ namespace SqlGpt.Services
 
 
                 };
-               
+                
+                
                 return responseDto;
             }
 
