@@ -20,7 +20,28 @@ namespace SqlGpt.Controllers
             this._messageService = messageService;
         }
 
-        [HttpPost("send")]
+        [HttpPost("send-auth")]
+        [Authorize]
+        public async Task<IActionResult> SendMessageAuth(MessageRequestDto message)
+        {
+            string? userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId==null)
+            {
+                return Unauthorized();
+            }
+            try
+            {
+                MessageResponseDto response = await _chatService.SendMessageAsync(message, userId);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+         [HttpPost("send")]
         public async Task<IActionResult> SendMessage(MessageRequestDto message)
         {
             string? userId = User?.Identity?.IsAuthenticated == true
@@ -37,6 +58,7 @@ namespace SqlGpt.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+   
 
         [HttpGet("userChats")]
         [Authorize]
